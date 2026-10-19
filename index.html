@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waseem Mahmoud | Data Analyst Portfolio</title>
+<meta name="description" content="Portfolio of Waseem Mahmoud, Data Analyst and Business Intelligence graduate: Power BI, SQL, Python, and R projects with dashboards, code, and results.">
+<meta property="og:title" content="Waseem Mahmoud | Data Analyst Portfolio">
+<meta property="og:description" content="Power BI, SQL, Python, and R projects with dashboards, code, and results.">
+<meta property="og:image" content="https://raw.githubusercontent.com/waseemalali/capital-bikeshare-bi/main/images/tableau_dashboard_page2.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --ink: #121826;
+    --muted: #586174;
+    --line: #e2e6ee;
+    --navy: #1f3a6e;
+    --accent: #2457b8;
+    --gold: #e0a800;
+    --chip: #eef2fa;
+    --shadow: 0 1px 2px rgba(18,24,38,.05), 0 8px 24px rgba(18,24,38,.06);
+    --code-bg: #0f1726;
+    --code-ink: #d6e2ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0d1117;
+      --surface: #151b26;
+      --ink: #e8ecf4;
+      --muted: #9aa5b8;
+      --line: #263042;
+      --navy: #9db8ff;
+      --accent: #7aa7ff;
+      --gold: #f2c811;
+      --chip: #1d2635;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+      --code-bg: #0a0f18;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --surface: #151b26; --ink: #e8ecf4; --muted: #9aa5b8; --line: #263042;
+    --navy: #9db8ff; --accent: #7aa7ff; --gold: #f2c811; --chip: #1d2635;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --code-bg: #0a0f18;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px; line-height: 1.6;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px; }
+  .brand { font-weight: 700; color: var(--ink); letter-spacing: -.01em; }
+  .brand span { color: var(--gold); }
+  .navlinks { display: flex; gap: 20px; font-size: 14px; }
+  .navlinks a { color: var(--muted); }
+  .navlinks a:hover { color: var(--ink); text-decoration: none; }
+
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1.1; margin: 10px 0 14px; letter-spacing: -.02em; }
+  h1 em { font-style: normal; color: var(--navy); }
+  .lede strong { color: var(--ink); }
+  .lede { font-size: 18px; color: var(--muted); max-width: 680px; margin: 0 0 24px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; font-weight: 600; font-size: 15px;
+         border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+  .btn:hover { text-decoration: none; border-color: var(--accent); }
+  .btn.primary { background: var(--navy); color: #fff; border-color: var(--navy); }
+  :root[data-theme="dark"] .btn.primary { color: #0d1117; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0d1117; } }
+  .btn svg { width: 18px; height: 18px; }
+
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .avatar { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; display: block;
+            border: 4px solid var(--surface); box-shadow: 0 0 0 1px var(--line), var(--shadow); background: var(--chip); }
+  .certline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 18px; font-size: 14px; color: var(--muted); }
+  .certline .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; color: var(--ink); font-weight: 600; }
+  .certline .chip::before { content: "✓"; color: var(--navy); font-weight: 700; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .stat b { display: block; font-size: 24px; letter-spacing: -.01em; }
+  .stat span { font-size: 13px; color: var(--muted); }
+
+  section { padding: 40px 0; }
+  h2 { font-size: 26px; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 22px; }
+
+  /* Featured */
+  .featured { display: grid; grid-template-columns: 1.35fr 1fr; background: var(--surface); border: 1px solid var(--line);
+              border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .featured .shot { background: #fff; display: flex; align-items: center; border-right: 1px solid var(--line); }
+  .featured .shot img { width: 100%; display: block; }
+  .featured .body { padding: 24px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+           background: color-mix(in srgb, var(--gold) 22%, transparent); color: var(--ink); margin-bottom: 10px; }
+  .featured h3 { font-size: 22px; margin: 0 0 8px; line-height: 1.25; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
+  .kpi { background: var(--chip); border-radius: 10px; padding: 10px; }
+  .kpi b { display: block; font-size: 18px; }
+  .kpi span { font-size: 12px; color: var(--muted); }
+
+  /* Filters */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .filters button { font: inherit; font-size: 14px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line);
+                    background: var(--surface); color: var(--muted); cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+  :root[data-theme="dark"] .filters button[aria-pressed="true"] { color: #0d1117; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .filters button[aria-pressed="true"] { color: #0d1117; } }
+
+  /* Grid */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column;
+          transition: transform .15s ease, box-shadow .15s ease; }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .card .thumb { aspect-ratio: 16 / 10; background: #fff; border-bottom: 1px solid var(--line); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .card .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .card .thumb.contain img { object-fit: contain; }
+  .card .thumb pre { margin: 0; width: 100%; height: 100%; padding: 14px 16px; background: var(--code-bg); color: var(--code-ink);
+                     font-family: "IBM Plex Mono", monospace; font-size: 11.5px; line-height: 1.5; overflow: hidden; white-space: pre-wrap; }
+  .card .thumb pre .k { color: #7fb4ff; } .card .thumb pre .c { color: #7d8aa3; } .card .thumb pre .s { color: #ffd479; }
+  .card .body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { font-size: 17px; margin: 0; line-height: 1.3; }
+  .metric { font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -.01em; line-height: 1.2; }
+  .metric small { display: block; font-size: 12.5px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .card p { margin: 0; color: var(--muted); font-size: 14.5px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+  .tag { font-size: 12px; padding: 2px 8px; border-radius: 6px; background: var(--chip); color: var(--muted); font-family: "IBM Plex Mono", monospace; }
+  .card .link { font-weight: 600; font-size: 14px; }
+  .hidden { display: none !important; }
+
+
+  /* Certifications */
+  .certs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cert { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+  .cert.big { grid-column: 1 / -1; }
+  .cert h3 { font-size: 17px; margin: 0; line-height: 1.3; }
+  .cert.big h3 { font-size: 20px; }
+  .issuer { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .cdate { font-size: 13.5px; color: var(--muted); }
+  .cert .link { margin-top: auto; padding-top: 6px; font-weight: 600; font-size: 14px; }
+  .cert-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cert details { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .cert summary { cursor: pointer; font-weight: 600; font-size: 14.5px; color: var(--accent); }
+  .courses { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 24px; }
+  .courses li { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; font-size: 14.5px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+  .courses a { font-weight: 600; font-size: 13.5px; }
+
+  /* Experience & skills */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .role { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .role:last-child { border-bottom: 0; }
+  .role b { display: block; }
+  .role span { color: var(--muted); font-size: 14px; }
+  .role p { margin: 6px 0 0; font-size: 14.5px; }
+  .skillrow { margin: 0 0 12px; }
+  .skillrow b { display: block; font-size: 14px; margin-bottom: 6px; }
+
+  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); margin-top: 24px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+  footer p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .certs { grid-template-columns: 1fr 1fr; }
+    .courses { grid-template-columns: 1fr; }
+    .featured { grid-template-columns: 1fr; }
+    .featured .shot { border-right: 0; border-bottom: 1px solid var(--line); }
+  }
+  @media (max-width: 640px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 20px; }
+    .avatar { order: -1; width: 110px; height: 110px; border-width: 3px; }
+    .navlinks { display: none; }
+    .hero { padding: 40px 0 24px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .grid, .two, .certs { grid-template-columns: 1fr; }
+    .courses li { grid-template-columns: 1fr auto; }
+    .courses li .cdate { display: none; }
+    .kpis { grid-template-columns: repeat(3, 1fr); }
+    .kpi b { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">Waseem Mahmoud<span>.</span></a>
+    <div class="navlinks">
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+   <div class="hero-grid">
+    <div class="hero-text">
+    <div class="eyebrow">Data Analyst · Business Intelligence</div>
+    <h1>Messy data in. <em>Clear decisions out.</em></h1>
+    <p class="lede">At my internship, I made a full-day report <strong>4× faster</strong>: it used to take a working day, and now it takes under an hour. I am a Data Analyst and Business Intelligence graduate (GPA 3.7/4.0, ranked 2nd in class) who cleans messy data, builds the model in SQL, Power BI, Python, or R, and shows the business what to do next.</p>
+    <div class="btns">
+      <a class="btn primary" href="https://www.linkedin.com/in/waseem-mahmoud-a34154213" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+        LinkedIn</a>
+      <a class="btn" href="https://github.com/waseemalali" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.6 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        GitHub</a>
+      <a class="btn" href="mailto:waseem.mahmoud002@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        Email me</a>
+    </div>
+    <div class="certline">
+      <span class="chip">Google Data Analytics Certified</span>
+      <span class="chip">Python for Everybody · University of Michigan</span>
+      <a href="#certifications">View all certificates →</a>
+    </div>
+    </div>
+    <img class="avatar" src="https://github.com/waseemalali.png?size=440" alt="Photo of Waseem Mahmoud" width="220" height="220">
+   </div>
+    <div class="stats">
+      <div class="stat"><b>11</b><span>Projects with code and data</span></div>
+      <div class="stat"><b>3.7 / 4.0</b><span>GPA, ranked 2nd in class</span></div>
+      <div class="stat"><b>22M+</b><span>Trips analyzed in my graduation project</span></div>
+      <div class="stat"><b>5+</b><span>Power BI dashboards for management</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="featured">
+  <div class="wrap">
+    <h2>Featured project</h2>
+    <p class="sub">My graduation project, and the one I know best.</p>
+    <article class="featured">
+      <div class="shot"><img src="https://raw.githubusercontent.com/waseemalali/capital-bikeshare-bi/main/images/tableau_dashboard_page2.png" alt="Tableau dashboard showing trip duration, bike type, and station usage for Capital Bikeshare" loading="lazy"></div>
+      <div class="body">
+        <span class="badge">Best Graduation Project · Middle East University</span>
+        <h3>Capital Bikeshare: Business Intelligence Project</h3>
+        <p class="sub" style="margin:0">Studied how time, weather, and rider type drive bike rentals in Washington, D.C., forecast demand five years ahead, and turned the findings into a plan for launching bike sharing in Jordan.</p>
+        <div class="kpis">
+          <div class="kpi"><b>22M+</b><span>trips, 2019–2024</span></div>
+          <div class="kpi"><b>10.87%</b><span>ARIMA forecast error (MAPE)</span></div>
+          <div class="kpi"><b>2 tools</b><span>Tableau and Power BI dashboards</span></div>
+        </div>
+        <div class="tags" style="margin-bottom:14px"><span class="tag">R</span><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">ARIMA</span><span class="tag">EDA</span></div>
+        <a class="link" href="https://github.com/waseemalali/capital-bikeshare-bi" target="_blank" rel="noopener">View code, data, and report →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="sub">Each project links to its GitHub repository with the code, data, and a full write-up.</p>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button aria-pressed="true" data-f="all">All</button>
+      <button aria-pressed="false" data-f="bi">Power BI</button>
+      <button aria-pressed="false" data-f="py">Python</button>
+      <button aria-pressed="false" data-f="sql">SQL</button>
+      <button aria-pressed="false" data-f="ml">Machine Learning</button>
+    </div>
+
+    <div class="grid">
+      <article class="card" data-t="bi">
+        <div class="thumb"><img src="https://raw.githubusercontent.com/waseemalali/maven-toys-sales-analysis/main/images/powerbi_dashboard_page1.png" alt="Maven Toys Power BI executive dashboard" loading="lazy"></div>
+        <div class="body">
+          <h3>Maven Toys: Sales &amp; Profitability</h3>
+          <div class="metric">$14.44M revenue<small>829K transactions across 50 stores</small></div>
+          <p>Found that revenue grew 30.9% while profit grew only 16%, and that one product drives 20.8% of all profit.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Excel</span></div>
+          <a class="link" href="https://github.com/waseemalali/maven-toys-sales-analysis" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="bi">
+        <div class="thumb"><img src="https://raw.githubusercontent.com/waseemalali/bittoo-tikki-wala-expansion/main/images/dashboard_sales_overview.png" alt="Bittoo Tikki Wala Power BI sales dashboard" loading="lazy"></div>
+        <div class="body">
+          <h3>Bittoo Tikki Wala: Jordan Market Expansion</h3>
+          <div class="metric">r = 0.73<small>Price vs. net sales; discounts showed no effect</small></div>
+          <p>Sales KPIs, a DAX correlation measure, SWOT, and a data-driven plan to open the first branch in Amman.</p>
+          <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Market analysis</span></div>
+          <a class="link" href="https://github.com/waseemalali/bittoo-tikki-wala-expansion" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py">
+        <div class="thumb contain"><img src="https://raw.githubusercontent.com/waseemalali/olist-ecommerce-analytics/main/outputs/figures/static/rfm_segments.png" alt="Bar chart of RFM customer segments" loading="lazy"></div>
+        <div class="body">
+          <h3>Olist E-Commerce Analytics</h3>
+          <div class="metric">~100K orders<small>R$ 15.67M revenue, 7.9% late deliveries</small></div>
+          <p>A tested pipeline that merges 9 tables, segments customers with RFM, and serves KPIs in a Streamlit dashboard.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Streamlit</span></div>
+          <a class="link" href="https://github.com/waseemalali/olist-ecommerce-analytics" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py">
+        <div class="thumb contain"><img src="https://raw.githubusercontent.com/waseemalali/retail-inventory-forecasting/main/charts/11_abc_classification.png" alt="ABC classification chart of retail products" loading="lazy"></div>
+        <div class="body">
+          <h3>Retail Inventory &amp; Replenishment</h3>
+          <div class="metric">94.1% forecast accuracy<small>73,100 daily records, 5 stores, 20 products</small></div>
+          <p>ABC analysis plus a replenishment plan with safety stock, reorder points, and EOQ for every store and product.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Excel</span></div>
+          <a class="link" href="https://github.com/waseemalali/retail-inventory-forecasting" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="sql">
+        <div class="thumb"><pre><span class="c">-- Top doctor by revenue in each department</span>
+<span class="k">WITH</span> DoctorRevenue <span class="k">AS</span> (
+  <span class="k">SELECT</span> dep.DepartmentName, d.DoctorID,
+         <span class="k">SUM</span>(t.Cost) <span class="k">AS</span> Revenue
+  <span class="k">FROM</span> Departments dep
+  <span class="k">JOIN</span> Appointments a <span class="k">ON</span> ...
+  <span class="k">GROUP BY</span> dep.DepartmentName, d.DoctorID
+)
+<span class="k">SELECT</span> *, <span class="k">ROW_NUMBER</span>() <span class="k">OVER</span> (
+  <span class="k">PARTITION BY</span> DepartmentName
+  <span class="k">ORDER BY</span> Revenue <span class="k">DESC</span>) <span class="k">AS</span> rn
+<span class="k">FROM</span> DoctorRevenue;</pre></div>
+        <div class="body">
+          <h3>Hospital Database SQL Analysis</h3>
+          <div class="metric">16 business queries<small>7-table database with keys and sample data</small></div>
+          <p>Patient lifetime value, doctor revenue rankings, and an executive summary using CTEs and window functions.</p>
+          <div class="tags"><span class="tag">SQL Server</span><span class="tag">T-SQL</span><span class="tag">CTEs</span></div>
+          <a class="link" href="https://github.com/waseemalali/hospital-sql-analysis" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py ml">
+        <div class="thumb contain"><img src="https://raw.githubusercontent.com/waseemalali/california-housing-prediction/main/outputs/figures/housing_05_map.png" alt="Map of California house values by location" loading="lazy"></div>
+        <div class="body">
+          <h3>California Housing Price Prediction</h3>
+          <div class="metric">$90.6K → $53.3K<small>Prediction error vs. baseline (R² = 0.58)</small></div>
+          <p>Compared linear, polynomial, and Ridge models on 20,640 districts and chose the most stable one by cross-validation.</p>
+          <div class="tags"><span class="tag">scikit-learn</span><span class="tag">Regression</span><span class="tag">Qafzah ML</span></div>
+          <a class="link" href="https://github.com/waseemalali/california-housing-prediction" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py ml">
+        <div class="thumb contain"><img src="https://raw.githubusercontent.com/waseemalali/titanic-survival-prediction/main/outputs/figures/titanic_03_survival_rates.png" alt="Titanic survival rates by sex and passenger class" loading="lazy"></div>
+        <div class="body">
+          <h3>Titanic Survival Prediction</h3>
+          <div class="metric">84.9% test accuracy<small>Against a 61.5% baseline</small></div>
+          <p>A leakage-safe scikit-learn pipeline comparing four models, with KNN tuned by 5-fold cross-validation.</p>
+          <div class="tags"><span class="tag">scikit-learn</span><span class="tag">Classification</span><span class="tag">Qafzah ML</span></div>
+          <a class="link" href="https://github.com/waseemalali/titanic-survival-prediction" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py">
+        <div class="thumb contain"><img src="https://raw.githubusercontent.com/waseemalali/amazon-products-analysis/main/images/discount_vs_rating.png" alt="Scatter plot of discount versus rating for Amazon products" loading="lazy"></div>
+        <div class="body">
+          <h3>Amazon Products Analysis</h3>
+          <div class="metric">~48% average discount<small>Average rating about 4.1 / 5</small></div>
+          <p>Cleaned messy price and rating text, then compared pricing, discounts, ratings, and brand engagement.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">Data cleaning</span></div>
+          <a class="link" href="https://github.com/waseemalali/amazon-products-analysis" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py">
+        <div class="thumb"><pre><span class="c"># wuzzuf_scraper.py</span>
+<span class="k">def</span> wait_for_page(driver, css_selector,
+                  timeout=PAGE_LOAD_TIMEOUT):
+    <span class="c"># wait for the element instead of a fixed sleep</span>
+    WebDriverWait(driver, timeout).until(
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, css_selector)))
+
+<span class="k">def</span> safe_text(tag, default=<span class="s">"N/A"</span>):
+    <span class="k">return</span> tag.get_text(strip=<span class="k">True</span>) <span class="k">if</span> tag <span class="k">else</span> default</pre></div>
+        <div class="body">
+          <h3>Wuzzuf Jobs Web Scraper</h3>
+          <div class="metric">99 job listings<small>Collected into a clean CSV dataset</small></div>
+          <p>Scrapes dynamic job pages with explicit waits and keeps every field aligned to its job card.</p>
+          <div class="tags"><span class="tag">Selenium</span><span class="tag">BeautifulSoup</span><span class="tag">Python</span></div>
+          <a class="link" href="https://github.com/waseemalali/wuzzuf-jobs-scraper" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+
+      <article class="card" data-t="py">
+        <div class="thumb"><pre><span class="c"># pharmacy_chatbot.py: system prompt rules</span>
+<span class="s">Do not diagnose diseases.
+Do not prescribe medicines.
+Do not give exact personalized doses.
+Answer in the same language used by the user.
+Tell the user when they should ask a doctor
+or pharmacist.</span>
+
+danger_words = [<span class="s">"chest pain"</span>, ...]  <span class="c"># → warning</span></pre></div>
+        <div class="body">
+          <h3>Pharmacy AI Chatbot</h3>
+          <div class="metric">Arabic + English<small>Gemini API with safety guardrails</small></div>
+          <p>Refers high-risk questions to a pharmacist and adds a disclaimer to every answer.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Gemini API</span><span class="tag">LLM</span></div>
+          <a class="link" href="https://github.com/waseemalali/pharmacy-ai-chatbot" target="_blank" rel="noopener">View project →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <h2>Certifications</h2>
+    <p class="sub">Every certificate links to the original, so you can verify it in one click.</p>
+    <div class="certs">
+      <article class="cert big">
+        <div class="cert-head">
+          <div>
+            <span class="issuer">Google · Coursera</span>
+            <h3>Google Data Analytics Professional Certificate</h3>
+            <span class="cdate">Issued Aug 2025 · Credential ID CD0ZSE9K1TXQ</span>
+          </div>
+          <a class="btn primary" href="https://www.coursera.org/account/accomplishments/specialization/CD0ZSE9K1TXQ" target="_blank" rel="noopener">Verify certificate</a>
+        </div>
+        <details>
+          <summary>Covers all 8 courses of the program</summary>
+          <ul class="courses">
+            <li><span>Foundations: Data, Data, Everywhere</span><span class="cdate">Aug 2024</span><a href="https://www.coursera.org/account/accomplishments/records/OBANUU3045CY" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Ask Questions to Make Data-Driven Decisions</span><span class="cdate">Dec 2024</span><a href="https://www.coursera.org/account/accomplishments/records/688RO4BQ79FV" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Prepare Data for Exploration</span><span class="cdate">Dec 2024</span><a href="https://www.coursera.org/account/accomplishments/records/KYUU2NZY7BGK" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Process Data from Dirty to Clean</span><span class="cdate">Feb 2025</span><a href="https://www.coursera.org/account/accomplishments/records/V96V3U5L7IYG" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Analyze Data to Answer Questions</span><span class="cdate">Jun 2025</span><a href="https://www.coursera.org/account/accomplishments/records/ZZO9B48LYR8B" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Share Data Through the Art of Visualization</span><span class="cdate">Jul 2025</span><a href="https://www.coursera.org/account/accomplishments/records/B6464RQOOELN" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Data Analysis with R Programming</span><span class="cdate">Jul 2025</span><a href="https://www.coursera.org/account/accomplishments/records/B51GHR1SYURW" target="_blank" rel="noopener">Verify</a></li>
+            <li><span>Google Data Analytics Capstone: Complete a Case Study</span><span class="cdate">Aug 2025</span><a href="https://www.coursera.org/account/accomplishments/specialization/CD0ZSE9K1TXQ" target="_blank" rel="noopener">Verify</a></li>
+          </ul>
+        </details>
+      </article>
+      <article class="cert">
+        <span class="issuer">University of Michigan · Coursera</span>
+        <h3>Programming for Everybody (Getting Started with Python)</h3>
+        <span class="cdate">Issued Feb 2026</span>
+        <a class="link" href="https://www.coursera.org/account/accomplishments/verify/OEVVHHDHF2SB" target="_blank" rel="noopener">Verify →</a>
+      </article>
+      <article class="cert">
+        <span class="issuer">University of Michigan · Coursera</span>
+        <h3>Python Data Structures</h3>
+        <span class="cdate">Issued May 2026</span>
+        <a class="link" href="https://www.coursera.org/verify/5LAOCT6UM31J" target="_blank" rel="noopener">Verify →</a>
+      </article>
+      <article class="cert">
+        <span class="issuer">University of Michigan · Coursera</span>
+        <h3>Using Python to Access Web Data</h3>
+        <span class="cdate">Issued Oct 2026</span>
+        <a class="link" href="https://www.coursera.org/account/accomplishments/records/N94V1BKSTQ8X" target="_blank" rel="noopener">Verify →</a>
+      </article>
+      <article class="cert">
+        <span class="issuer">Qafzah</span>
+        <h3>Data Science &amp; Machine Learning Program</h3>
+        <span class="cdate">2026 – Present · Course + hands-on internship (in progress)</span>
+        <a class="link" href="#experience">See experience →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience &amp; skills</h2>
+    <p class="sub">Where I apply this work day to day.</p>
+    <div class="two">
+      <div class="panel">
+        <div class="role">
+          <b>Business Intelligence Analyst Intern · Sphereka</b>
+          <span>2026 · Jordan (Hybrid)</span>
+          <p>Automated a recurring report from about a full day to under an hour, built 5+ Power BI dashboards for management, and sourced and cleaned external data with Python and SQL.</p>
+        </div>
+        <div class="role">
+          <b>Data Science Intern · Qafzah</b>
+          <span>May 2026 – Present · Amman (Hybrid)</span>
+          <p>Hands-on internship combined with a Data Science and Machine Learning course. Built classification and regression models with scikit-learn, using leakage-safe pipelines and cross-validated model selection.</p>
+        </div>
+        <div class="role">
+          <b>B.A. Business Intelligence · Middle East University</b>
+          <span>2025 · GPA 3.7 / 4.0, ranked 2nd in class</span>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="skillrow"><b>BI &amp; visualization</b><div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">Streamlit</span></div></div>
+        <div class="skillrow"><b>Data &amp; databases</b><div class="tags"><span class="tag">SQL Server (T-SQL)</span><span class="tag">PostgreSQL</span><span class="tag">HANA SQL</span><span class="tag">Data modeling</span><span class="tag">ETL</span></div></div>
+        <div class="skillrow"><b>Programming &amp; analysis</b><div class="tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">R</span><span class="tag">Forecasting</span><span class="tag">EDA</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div>
+      <b>Let's talk data.</b>
+      <p>Open to Data Analyst and Business Intelligence roles.</p>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="mailto:waseem.mahmoud002@gmail.com">waseem.mahmoud002@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/waseem-mahmoud-a34154213" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/waseemalali" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const buttons = document.querySelectorAll('.filters button');
+  const cards = document.querySelectorAll('.grid .card');
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    const f = b.dataset.f;
+    cards.forEach(c => c.classList.toggle('hidden', f !== 'all' && !c.dataset.t.split(' ').includes(f)));
+  }));
+</script>
+</body>
+</html>
